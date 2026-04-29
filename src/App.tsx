@@ -185,7 +185,7 @@ export default function App() {
               title: "Tumpang Sari",
               desc: "Aplikasi booking servis motor. Dibangun untuk mempermudah pelanggan jadwalkan servis kendaraan mereka.",
               icon: <img src="/tumpangsari.png" alt="Tumpang Sari" />,
-              style: "bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/30",
+              style: "bg-red-60 dark:bg-red-900/10 border-red-100 dark:border-red-900/30",
               link: "https://github.com/MuhammadGilangGhazy1722/MK-3C"
             },
             {
