@@ -94,7 +94,7 @@ export default function App() {
             
             <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl font-medium tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
               Fresh Graduate <br />
-              <span className="text-indigo-600 dark:text-indigo-400">& Fullstack Dev.</span>
+              <span className="text-indigo-600 dark:text-indigo-400">& Fullstack Dev</span>
             </motion.h1>
 
             <motion.p variants={itemVariants} className="max-w-lg text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
@@ -300,7 +300,7 @@ export default function App() {
 
       <footer className="max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-gray-50 dark:border-zinc-900">
         <p className="text-sm text-zinc-400 italic">
-          Built by Gilang — 2026 · Batam, ID
+          Built by Gilang — 2026 · Batam, Indonesia
         </p>
         <div className="flex gap-4 items-center">
           <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
