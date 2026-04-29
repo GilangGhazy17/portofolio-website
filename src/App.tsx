@@ -247,13 +247,13 @@ export default function App() {
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <a href="mailto:lankghzy.com" className="flex items-center gap-3 p-4 rounded-xl border border-zinc-100 dark:border-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors">
+              <a href="mailto:lankghzy@gmail.com" className="flex items-center gap-3 p-4 rounded-xl border border-zinc-100 dark:border-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors">
                 <div className="w-10 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500 flex items-center justify-center">
                   <Mail size={20} />
                 </div>
                 <div>
                   <div className="text-[10px] uppercase text-zinc-400 font-semibold tracking-tighter">Email</div>
-                  <div className="text-sm font-medium">lankghzy@email.com</div>
+                  <div className="text-sm font-medium">lankghzy@gmail.com</div>
                 </div>
               </a>
               <a href="tel:+628755937382" className="flex items-center gap-3 p-4 rounded-xl border border-zinc-100 dark:border-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors">
