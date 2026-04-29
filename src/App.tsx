@@ -262,7 +262,7 @@ export default function App() {
                 </div>
                 <div>
                   <div className="text-[10px] uppercase text-zinc-400 font-semibold tracking-tighter">WhatsApp</div>
-                  <div className="text-sm font-medium">+62 857-5593-7382</div>
+                  <div className="text-sm font-medium">0857-5593-7382</div>
                 </div>
               </a>
               <a 
