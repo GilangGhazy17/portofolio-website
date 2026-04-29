@@ -253,7 +253,7 @@ export default function App() {
                 </div>
                 <div className="min-w-0">
                   <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 dark:text-zinc-300 font-semibold tracking-tighter">Email</div>
-                  <div className="text-xs sm:text-sm font-medium sm:truncate lg:truncate-none text-zinc-900 dark:text-white">lankghzy@gmail.com</div>
+                  <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white overflow-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">lankghzy@gmail.com</div>
                 </div>
               </a>
               <a href="tel:+628755937382" className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
@@ -262,7 +262,7 @@ export default function App() {
                 </div>
                 <div className="min-w-0">
                   <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 dark:text-zinc-300 font-semibold tracking-tighter">WhatsApp</div>
-                  <div className="text-xs sm:text-sm font-medium sm:truncate lg:truncate-none text-zinc-900 dark:text-white">0857-5593-7382</div>
+                  <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white overflow-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">0857-5593-7382</div>
                 </div>
               </a>
               <a 
@@ -276,7 +276,7 @@ export default function App() {
                 </div>
                 <div className="min-w-0">
                   <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 dark:text-zinc-300 font-semibold tracking-tighter">GitHub</div>
-                  <div className="text-xs sm:text-sm font-medium sm:truncate lg:truncate-none text-zinc-900 dark:text-white">MuhammadGilangGhazy</div>
+                  <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white overflow-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">MuhammadGilangGhazy</div>
                 </div>
               </a>
               <a 
@@ -290,7 +290,7 @@ export default function App() {
                 </div>
                 <div className="min-w-0">
                   <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 dark:text-zinc-300 font-semibold tracking-tighter">Instagram</div>
-                  <div className="text-xs sm:text-sm font-medium sm:truncate lg:truncate-none text-zinc-900 dark:text-white">@lankghzy_</div>
+                  <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white overflow-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">@lankghzy_</div>
                 </div>
               </a>
             </div>
