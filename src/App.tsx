@@ -110,7 +110,7 @@ export default function App() {
                 Mulai Kolaborasi <ChevronRight size={16} />
               </a>
               <a 
-                href="/cv-ats.pdf" 
+                href="/cvats-fullstack.pdf" 
                 download 
                 className="px-6 py-3 border border-zinc-200 dark:border-zinc-800 rounded-full font-medium text-sm flex items-center gap-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all">
                 Unduh CV <Download size={16} />
