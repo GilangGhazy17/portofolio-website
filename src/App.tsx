@@ -239,63 +239,78 @@ export default function App() {
         </Section>
 
         {/* Contact Section */}
-        <Section title="kontak" id="kontak">
-          <div className="space-y-8">
-            <p className="text-2xl font-light text-zinc-800 dark:text-zinc-200">
-              Ada ide yang ingin dibicarakan? <br />
-              <span className="font-medium text-zinc-950 dark:text-white">Ayo ngobrol bareng.</span>
-            </p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-              <a href="mailto:lankghzy@gmail.com" className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-                <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500 flex items-center justify-center flex-shrink-0">
-                  <Mail size={18} className="sm:w-5 sm:h-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 dark:text-zinc-300 font-semibold tracking-tighter">Email</div>
-                  <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white overflow-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">lankghzy@gmail.com</div>
-                </div>
-              </a>
-              <a href="tel:+628755937382" className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-                <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 flex items-center justify-center flex-shrink-0">
-                  <Phone size={18} className="sm:w-5 sm:h-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 dark:text-zinc-300 font-semibold tracking-tighter">WhatsApp</div>
-                  <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white overflow-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">0857-5593-7382</div>
-                </div>
-              </a>
-              <a 
-                href="https://github.com/MuhammadGilangGhazy1722"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
-              >
-                <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white flex items-center justify-center flex-shrink-0">
-                  <Github size={18} className="sm:w-5 sm:h-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 dark:text-zinc-300 font-semibold tracking-tighter">GitHub</div>
-                  <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white overflow-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">MuhammadGilangGhazy</div>
-                </div>
-              </a>
-              <a 
-                href="https://www.instagram.com/lankghzy_"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
-              >
-                <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-pink-50 dark:bg-pink-900/20 text-pink-500 flex items-center justify-center flex-shrink-0">
-                  <Instagram size={18} className="sm:w-5 sm:h-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 dark:text-zinc-300 font-semibold tracking-tighter">Instagram</div>
-                  <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white overflow-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">@lankghzy_</div>
-                </div>
-              </a>
-            </div>
+<Section title="kontak" id="kontak">
+  <div className="space-y-10">
+    <p className="text-2xl font-light text-zinc-800 dark:text-zinc-200">
+      Ada ide yang ingin dibicarakan? <br />
+      <span className="font-medium text-zinc-950 dark:text-white">Ayo ngobrol bareng.</span>
+    </p>
+
+    {/* Form */}
+    <div className="bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-6 sm:p-8 space-y-4 border border-zinc-100 dark:border-zinc-800">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <input
+          type="text"
+          placeholder="Nama"
+          className="w-full px-4 py-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          className="w-full px-4 py-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+      </div>
+      <textarea
+        placeholder="Pesan"
+        rows={5}
+        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+      />
+      <button className="w-full sm:w-auto px-8 py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-xl font-medium text-sm hover:opacity-90 transition-all">
+        Kirim Pesan
+      </button>
+    </div>
+
+          {/* Contact Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <a href="mailto:lankghzy@gmail.com" className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
+              <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500 flex items-center justify-center flex-shrink-0">
+                <Mail size={18} />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 font-semibold tracking-tighter">Email</div>
+                <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white truncate">lankghzy@gmail.com</div>
+              </div>
+            </a>
+            <a href="tel:+6285755937382" className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
+              <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 flex items-center justify-center flex-shrink-0">
+                <Phone size={18} />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 font-semibold tracking-tighter">WhatsApp</div>
+                <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white truncate">0857-5593-7382</div>
+              </div>
+            </a>
+            <a href="https://github.com/MuhammadGilangGhazy1722" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
+              <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white flex items-center justify-center flex-shrink-0">
+                <Github size={18} />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 font-semibold tracking-tighter">GitHub</div>
+                <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white truncate">MuhammadGilangGhazy</div>
+              </div>
+            </a>
+            <a href="https://www.instagram.com/lankghzy_" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
+              <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-pink-50 dark:bg-pink-900/20 text-pink-500 flex items-center justify-center flex-shrink-0">
+                <Instagram size={18} />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 font-semibold tracking-tighter">Instagram</div>
+                <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white truncate">@lankghzy_</div>
+              </div>
+            </a>
           </div>
-        </Section>
+        </div>
+      </Section>
       </main>
 
       <footer className="max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-gray-50 dark:border-zinc-900">
