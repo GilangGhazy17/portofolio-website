@@ -51,7 +51,7 @@ export default function App() {
     try {
       await emailjs.send(
         'service_v3w4u6k',    // ← ganti dengan Service ID kamu
-        'template_63x45at',   // ← ganti dengan Template ID kamu 
+        'template_butxtg7',   // ← ganti dengan Template ID kamu 
         {
           from_name: formData.name,
           from_email: formData.email,
