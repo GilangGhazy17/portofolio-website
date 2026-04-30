@@ -252,61 +252,54 @@ export default function App() {
         <input
           type="text"
           placeholder="Nama"
+          id="contact-name"
           className="w-full px-4 py-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
         <input
           type="email"
           placeholder="Email"
+          id="contact-email"
           className="w-full px-4 py-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
       </div>
       <textarea
         placeholder="Pesan"
         rows={5}
+        id="contact-message"
         className="w-full px-4 py-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
       />
-      <button className="w-full sm:w-auto px-8 py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-xl font-medium text-sm hover:opacity-90 transition-all">
+      <button
+        onClick={() => {
+          const name = (document.getElementById('contact-name') as HTMLInputElement).value;
+          const email = (document.getElementById('contact-email') as HTMLInputElement).value;
+          const message = (document.getElementById('contact-message') as HTMLTextAreaElement).value;
+          const subject = `Pesan dari ${name} (${email})`;
+          const body = message;
+          window.location.href = `mailto:lankghzy@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }}
+        className="w-full sm:w-auto px-8 py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-xl font-medium text-sm hover:opacity-90 transition-all"
+      >
         Kirim Pesan
       </button>
     </div>
 
           {/* Contact Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            <a href="mailto:lankghzy@gmail.com" className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-              <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500 flex items-center justify-center flex-shrink-0">
-                <Mail size={18} />
-              </div>
-              <div className="min-w-0">
-                <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 font-semibold tracking-tighter">Email</div>
-                <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white truncate">lankghzy@gmail.com</div>
-              </div>
+<div className="bg-white-900 rounded-2xl px-8 py-6 flex flex-wrap justify-center md:justify-between items-center gap-6">
+            <a href="mailto:lankghzy@gmail.com" className="flex items-center gap-3 text-zinc-400 hover:text-black transition-colors">
+              <Mail size={18} />
+              <span className="text-sm font-medium">lankghzy@gmail.com</span>
             </a>
-            <a href="tel:+6285755937382" className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-              <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 flex items-center justify-center flex-shrink-0">
-                <Phone size={18} />
-              </div>
-              <div className="min-w-0">
-                <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 font-semibold tracking-tighter">WhatsApp</div>
-                <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white truncate">0857-5593-7382</div>
-              </div>
+            <a href="https://wa.me/6285755937382" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-zinc-400 hover:text-black transition-colors">
+              <Phone size={18} />
+              <span className="text-sm font-medium">0857-5593-7382</span>
             </a>
-            <a href="https://github.com/MuhammadGilangGhazy1722" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-              <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white flex items-center justify-center flex-shrink-0">
-                <Github size={18} />
-              </div>
-              <div className="min-w-0">
-                <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 font-semibold tracking-tighter">GitHub</div>
-                <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white truncate">MuhammadGilangGhazy</div>
-              </div>
+            <a href="https://github.com/MuhammadGilangGhazy1722" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-zinc-400 hover:text-black transition-colors">
+              <Github size={18} />
+              <span className="text-sm font-medium">MuhammadGilangGhazy</span>
             </a>
-            <a href="https://www.instagram.com/lankghzy_" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-              <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-pink-50 dark:bg-pink-900/20 text-pink-500 flex items-center justify-center flex-shrink-0">
-                <Instagram size={18} />
-              </div>
-              <div className="min-w-0">
-                <div className="text-[9px] sm:text-[10px] uppercase text-zinc-400 font-semibold tracking-tighter">Instagram</div>
-                <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-white truncate">@lankghzy_</div>
-              </div>
+            <a href="https://www.instagram.com/lankghzy_" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-zinc-400 hover:text-black transition-colors">
+              <Instagram size={18} />
+              <span className="text-sm font-medium">@lankghzy_</span>
             </a>
           </div>
         </div>
