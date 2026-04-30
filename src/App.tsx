@@ -2,7 +2,8 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-
+import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import { motion } from "motion/react";
 import { 
   Github, 
@@ -39,6 +40,33 @@ const Chip = ({ text, colorClass }: { text: string, colorClass?: string }) => (
 );
 
 export default function App() {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState(false);
+
+  const sendEmail = async () => {
+    setSending(true);
+    setError(false);
+    try {
+      await emailjs.send(
+        'service_v3w4u6k',    // ← ganti dengan Service ID kamu
+        'template_63x45at',   // ← ganti dengan Template ID kamu 
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+        },
+        'd9-pjb1j9AxSlVmiK'     // ← ganti dengan Public Key kamu
+      );
+      setSent(true);
+      setFormData({ name: '', email: '', message: '' });
+    } catch {
+      setError(true);
+    } finally {
+      setSending(false);
+    }
+  };
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -252,37 +280,35 @@ export default function App() {
         <input
           type="text"
           placeholder="Nama"
-          id="contact-name"
+          value={formData.name}
+          onChange={(e) => setFormData({...formData, name: e.target.value})}
           className="w-full px-4 py-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
         <input
           type="email"
           placeholder="Email"
-          id="contact-email"
+          value={formData.email}
+          onChange={(e) => setFormData({...formData, email: e.target.value})}
           className="w-full px-4 py-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
       </div>
       <textarea
         placeholder="Pesan"
         rows={5}
-        id="contact-message"
+        value={formData.message}
+        onChange={(e) => setFormData({...formData, message: e.target.value})}
         className="w-full px-4 py-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
       />
       <button
-        onClick={() => {
-          const name = (document.getElementById('contact-name') as HTMLInputElement).value;
-          const email = (document.getElementById('contact-email') as HTMLInputElement).value;
-          const message = (document.getElementById('contact-message') as HTMLTextAreaElement).value;
-          const subject = `Pesan dari ${name} (${email})`;
-          const body = message;
-          window.location.href = `mailto:lankghzy@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        }}
-        className="w-full sm:w-auto px-8 py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-xl font-medium text-sm hover:opacity-90 transition-all"
+        onClick={sendEmail}
+        disabled={sending}
+        className="w-full sm:w-auto px-8 py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-xl font-medium text-sm hover:opacity-90 transition-all disabled:opacity-50"
       >
-        Kirim Pesan
+        {sending ? 'Mengirim...' : sent ? 'Terkirim ✓' : 'Kirim Pesan'}
       </button>
+      {sent && <p className="text-sm text-emerald-500">Pesan berhasil dikirim!</p>}
+      {error && <p className="text-sm text-red-500">Gagal kirim, coba lagi.</p>}
     </div>
-
           {/* Contact Cards */}
 <div className="bg-white-900 rounded-2xl px-8 py-6 flex flex-wrap justify-center md:justify-between items-center gap-6">
             <a href="mailto:lankghzy@gmail.com" className="flex items-center gap-3 text-zinc-400 hover:text-black transition-colors">
