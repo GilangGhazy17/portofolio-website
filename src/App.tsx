@@ -361,19 +361,19 @@ export default function App() {
               {
                 title: "Tumpang Sari",
                 desc: "Aplikasi booking servis motor. Dibangun untuk mempermudah pelanggan jadwalkan servis kendaraan mereka.",
-                icon: <img src="/tumpangsari.png" alt="Tumpang Sari" className="w-6 h-6 object-contain" />,
+                icon: <img src="/tumpangsari.png" alt="Tumpang Sari" className="object-contain" />,
                 link: "https://github.com/MuhammadGilangGhazy1722/MK-3C",
               },
               {
                 title: "FINTRA",
                 desc: "Aplikasi manajemen keuangan pribadi. Catat pemasukan, pengeluaran, dan pantau kondisi keuangan.",
-                icon: <img src="/fintraaa.png" alt="FINTRA" className="w-6 h-6 object-contain" />,
+                icon: <img src="/fintraaa.png" alt="FINTRA" className="object-contain" />,
                 link: "https://github.com/MuhammadGilangGhazy1722/Fintra",
               },
               {
                 title: "RagilTrans",
                 desc: "Aplikasi booking mobil online. Memudahkan pengguna memesan kendaraan dengan mudah dan cepat.",
-                icon: <img src="/newragiltrans.png" alt="RagilTrans" className="w-6 h-6 object-contain" />,
+                icon: <img src="/newragiltrans.png" alt="RagilTrans" className="object-contain" />,
                 link: "https://github.com/MuhammadGilangGhazy1722/RAGILTRANS",
               },
               {
