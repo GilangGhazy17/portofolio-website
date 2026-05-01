@@ -450,19 +450,47 @@ export default function App() {
           </div>
         </Section>
 
-        {/* ── Kontak ── */}
+                {/* ── Kontak ── */}
         <Section title="kontak" id="kontak">
-          <div className="space-y-10">
-            <p className="text-2xl font-light" style={{ color: "rgba(255,255,255,0.75)" }}>
-              Ada ide yang ingin dibicarakan? <br />
-              <span className="font-semibold" style={{ color: "#fff" }}>
-                Ayo ngobrol bareng.
-              </span>
-            </p>
+          <div className="grid md:grid-cols-2 gap-12 items-start">
 
-            {/* Form */}
+            {/* LEFT */}
+            <div className="space-y-6">
+              <p className="text-2xl font-light" style={{ color: "rgba(255,255,255,0.75)" }}>
+                Ada ide yang ingin dibicarakan? <br />
+                <span className="font-semibold" style={{ color: "#fff" }}>
+                  Ayo ngobrol bareng.
+                </span>
+              </p>
+
+              {/* Sosmed pindah ke kiri */}
+              <div className="flex flex-col gap-4 pt-4">
+                {[
+                  { href: "mailto:lankghzy@gmail.com", icon: <Mail size={18} />, label: "lankghzy@gmail.com" },
+                  { href: "https://wa.me/6285755937382", icon: <Phone size={18} />, label: "0857-5593-7382" },
+                  { href: "https://github.com/MuhammadGilangGhazy1722", icon: <Github size={18} />, label: "MuhammadGilangGhazy" },
+                  { href: "https://www.instagram.com/lankghzy_", icon: <Instagram size={18} />, label: "@lankghzy_" },
+                ].map(({ href, icon, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 transition-colors"
+                    style={{ color: "rgba(255,255,255,0.5)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = ACCENT)}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}
+                  >
+                    {icon}
+                    <span className="text-sm font-medium">{label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT (FORM) */}
             <div
-              className="backdrop-blur-sm rounded-2xl p-6 sm:p-8 space-y-4"
+              className="backdrop-blur-sm rounded-2xl p-8 space-y-5"
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: `1px solid ${BORDER}`,
@@ -484,79 +512,38 @@ export default function App() {
                       border: "1px solid rgba(56,189,248,0.18)",
                       color: "#fff",
                     }}
-                    onFocus={(e) =>
-                      (e.currentTarget.style.boxShadow = "0 0 0 2px rgba(56,189,248,0.4)")
-                    }
-                    onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
                   />
                 ))}
               </div>
+
               <textarea
                 placeholder="Pesan"
                 rows={5}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all resize-none placeholder-white/30"
+                className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none resize-none placeholder-white/30"
                 style={{
                   background: "rgba(255,255,255,0.06)",
                   border: "1px solid rgba(56,189,248,0.18)",
                   color: "#fff",
                 }}
-                onFocus={(e) =>
-                  (e.currentTarget.style.boxShadow = "0 0 0 2px rgba(56,189,248,0.4)")
-                }
-                onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
               />
+
               <button
                 onClick={sendEmail}
                 disabled={sending}
-                className="w-full sm:w-auto px-8 py-3 rounded-xl font-semibold text-sm transition-all disabled:opacity-50"
+                className="w-full px-6 py-4 rounded-xl font-semibold text-sm transition-all"
                 style={{
                   background: ACCENT,
                   color: BG,
-                  boxShadow: "0 0 20px rgba(56,189,248,0.3)",
+                  boxShadow: "0 0 24px rgba(56,189,248,0.4)",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.boxShadow = "0 0 32px rgba(56,189,248,0.5)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.boxShadow = "0 0 20px rgba(56,189,248,0.3)")
-                }
               >
                 {sending ? "Mengirim..." : sent ? "Terkirim ✓" : "Kirim Pesan"}
               </button>
-              {sent && (
-                <p className="text-sm" style={{ color: "#6EE7B7" }}>
-                  Pesan berhasil dikirim!
-                </p>
-              )}
-              {error && (
-                <p className="text-sm text-red-400">Gagal kirim, coba lagi.</p>
-              )}
-            </div>
 
-            {/* Sosmed */}
-            <div className="flex flex-wrap justify-center md:justify-between items-center gap-6 px-2">
-              {[
-                { href: "mailto:lankghzy@gmail.com",                  icon: <Mail size={18} />,      label: "lankghzy@gmail.com"  },
-                { href: "https://wa.me/6285755937382",                icon: <Phone size={18} />,     label: "0857-5593-7382"      },
-                { href: "https://github.com/MuhammadGilangGhazy1722", icon: <Github size={18} />,    label: "MuhammadGilangGhazy" },
-                { href: "https://www.instagram.com/lankghzy_",        icon: <Instagram size={18} />, label: "@lankghzy_"          },
-              ].map(({ href, icon, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 transition-colors"
-                  style={{ color: "rgba(255,255,255,0.4)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = ACCENT)}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}
-                >
-                  {icon}
-                  <span className="text-sm font-medium">{label}</span>
-                </a>
-              ))}
+              {sent && <p className="text-sm text-green-400">Pesan berhasil dikirim!</p>}
+              {error && <p className="text-sm text-red-400">Gagal kirim.</p>}
             </div>
           </div>
         </Section>
