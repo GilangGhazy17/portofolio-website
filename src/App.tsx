@@ -3,44 +3,62 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { useState } from "react";
-import emailjs from "@emailjs/browser";
 import { motion } from "motion/react";
-import { 
-  Github, 
+import {
+  Github,
   Phone,
   Instagram,
-  Mail, 
-  ExternalLink, 
-  Download, 
+  Mail,
+  Download,
   ChevronRight,
   Code2,
-  Palette,
-  Briefcase
 } from "lucide-react";
 
-const Section = ({ title, children, id }: { title: string, children: React.ReactNode, id?: string }) => (
-  <section id={id} className="py-20 border-b border-gray-100 dark:border-zinc-800">
+// ── Design tokens ──────────────────────────────────────────────────
+const BG        = "#1E2433";
+const BG_NAV    = "rgba(30,36,51,0.88)";
+const BG_CARD   = "rgba(255,255,255,0.04)";
+const BG_CARD_H = "rgba(255,255,255,0.08)";
+const ACCENT    = "#38BDF8";
+const BORDER    = "rgba(255,255,255,0.08)";
+
+// ── Types ──────────────────────────────────────────────────────────
+interface SectionProps {
+  title: string;
+  children: React.ReactNode;
+  id?: string;
+}
+
+type FormFields = {
+  name: string;
+  email: string;
+  message: string;
+};
+
+// ── Section component ──────────────────────────────────────────────
+const Section = ({ title, children, id }: SectionProps) => (
+  <section id={id} className="py-20 border-b" style={{ borderColor: BORDER }}>
     <div className="flex flex-col md:flex-row gap-12 md:gap-24">
       <div className="w-full md:w-32 flex-shrink-0">
-        <h2 className="text-xs font-semibold tracking-widest text-zinc-400 uppercase pt-1">
+        <h2
+          className="text-xs font-semibold tracking-widest uppercase pt-1"
+          style={{ color: ACCENT, opacity: 0.7 }}
+        >
           {title}
         </h2>
       </div>
-      <div className="flex-1">
-        {children}
-      </div>
+      <div className="flex-1">{children}</div>
     </div>
   </section>
 );
 
-const Chip = ({ text, colorClass }: { text: string, colorClass?: string }) => (
-  <span className={`px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium border ${colorClass || "bg-zinc-50 text-zinc-600 border-zinc-200 dark:bg-zinc-900 dark:text-zinc-400 dark:border-zinc-800"}`}>
-    {text}
-  </span>
-);
-
+// ── App ────────────────────────────────────────────────────────────
 export default function App() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState<FormFields>({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState(false);
@@ -49,52 +67,93 @@ export default function App() {
     setSending(true);
     setError(false);
     try {
+      const emailjs = (await import("@emailjs/browser")).default;
       await emailjs.send(
-        'service_v3w4u6k',    // ← ganti dengan Service ID kamu
-        'template_butxtg7',   // ← ganti dengan Template ID kamu 
+        "service_v3w4u6k",
+        "template_butxtg7",
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
         },
-        'd9-pjb1j9AxSlVmiK'     // ← ganti dengan Public Key kamu
+        "d9-pjb1j9AxSlVmiK"
       );
       setSent(true);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: "", email: "", message: "" });
     } catch {
       setError(true);
     } finally {
       setSending(false);
     }
   };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    },
   };
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
+    visible: { y: 0, opacity: 1 },
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-950 font-sans selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="min-h-screen font-sans" style={{ background: BG, color: "#fff" }}>
+
+      {/* Grid texture */}
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: "48px 48px",
+          zIndex: 0,
+        }}
+      />
+
+      {/* Glow blob */}
+      <div
+        className="fixed pointer-events-none"
+        style={{
+          top: "-120px",
+          right: "-120px",
+          width: "480px",
+          height: "480px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(56,189,248,0.12) 0%, transparent 70%)",
+          zIndex: 0,
+        }}
+      />
+
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-gray-100 dark:border-zinc-900">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="font-medium tracking-tight text-zinc-900 dark:text-white">Muhammad Gilang Ghazy</span>
+      <nav
+        className="fixed top-0 w-full z-50 backdrop-blur-md border-b"
+        style={{ background: BG_NAV, borderColor: BORDER }}
+      >
+        <div
+          className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between"
+          style={{ position: "relative", zIndex: 1 }}
+        >
+          <span
+            className="font-semibold tracking-tight"
+            style={{ color: "#fff", letterSpacing: "-0.02em" }}
+          >
+            Muhammad Gilang Ghazy
+          </span>
           <div className="hidden sm:flex gap-8 items-center">
-            {['tentang', 'pengalaman', 'kontak'].map((link) => (
-              <a 
-                key={link} 
-                href={`#${link}`} 
-                className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
+            {["tentang", "pengalaman", "kontak"].map((link) => (
+              <a
+                key={link}
+                href={`#${link}`}
+                className="text-sm transition-colors"
+                style={{ color: "rgba(255,255,255,0.5)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = ACCENT)}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}
               >
                 {link}
               </a>
@@ -103,242 +162,420 @@ export default function App() {
         </div>
       </nav>
 
-      <main className="max-w-6xl mx-auto px-6 pt-32 pb-24">
-        {/* Hero Section */}
-        <motion.div 
-          className="flex flex-col md:flex-row items-start md:items-center gap-12 pb-24 border-b border-gray-100 dark:border-zinc-800"
+      <main
+        className="max-w-6xl mx-auto px-6 pt-32 pb-24"
+        style={{ position: "relative", zIndex: 1 }}
+      >
+        {/* ── Hero ── */}
+        <motion.div
+          className="flex flex-col md:flex-row items-start md:items-center gap-12 pb-24 border-b"
+          style={{ borderColor: BORDER }}
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
           <div className="flex-1 space-y-6">
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 text-xs font-medium border border-emerald-100 dark:border-emerald-800/50">
+            <motion.div
+              variants={itemVariants}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border"
+              style={{
+                background: "rgba(56,189,248,0.12)",
+                color: ACCENT,
+                borderColor: "rgba(56,189,248,0.3)",
+              }}
+            >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span
+                  className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                  style={{ background: ACCENT }}
+                />
+                <span
+                  className="relative inline-flex rounded-full h-2 w-2"
+                  style={{ background: ACCENT }}
+                />
               </span>
               Tersedia untuk proyek baru
             </motion.div>
-            
-            <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl font-medium tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
+
+            <motion.h1
+              variants={itemVariants}
+              className="text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1]"
+              style={{ color: "#fff", letterSpacing: "-0.03em" }}
+            >
               Fresh Graduate <br />
-              <span className="text-indigo-600 dark:text-indigo-400">& Fullstack Dev</span>
+              <span style={{ color: ACCENT }}>&amp; Fullstack Dev</span>
             </motion.h1>
 
-            <motion.p variants={itemVariants} className="max-w-lg text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              Fresh graduate SMK Telkom Purwokerto, jurusan Pengembangan Perangkat Lunak & Gim ( PPLG ). 
-              Senang membangun antarmuka yang rapi dan mudah dipakai 
-              dari tugas sekolah sampai proyek pribadi.
+            <motion.p
+              variants={itemVariants}
+              className="max-w-lg text-lg leading-relaxed"
+              style={{ color: "rgba(255,255,255,0.6)" }}
+            >
+              Fresh graduate SMK Telkom Purwokerto, jurusan Pengembangan Perangkat Lunak &amp; Gim (PPLG).
+              Senang membangun antarmuka yang rapi dan mudah dipakai dari tugas sekolah sampai proyek pribadi.
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4 pt-4">
-              <a 
+              <a
                 href="mailto:lankghzy@gmail.com"
-                className="px-6 py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-medium text-sm flex items-center gap-2 hover:opacity-90 transition-all">
+                className="px-6 py-3 rounded-full font-semibold text-sm flex items-center gap-2 transition-all"
+                style={{
+                  background: ACCENT,
+                  color: BG,
+                  boxShadow: "0 0 24px rgba(56,189,248,0.35)",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.boxShadow = "0 0 36px rgba(56,189,248,0.55)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.boxShadow = "0 0 24px rgba(56,189,248,0.35)")
+                }
+              >
                 Mulai Kolaborasi <ChevronRight size={16} />
               </a>
-              <a 
-                href="/cvats-fullstack.pdf" 
-                download 
-                className="px-6 py-3 border border-zinc-200 dark:border-zinc-800 rounded-full font-medium text-sm flex items-center gap-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all">
+              <a
+                href="/cvats-fullstack.pdf"
+                download
+                className="px-6 py-3 rounded-full font-medium text-sm flex items-center gap-2 transition-all border"
+                style={{
+                  borderColor: "rgba(56,189,248,0.3)",
+                  color: ACCENT,
+                  background: "rgba(56,189,248,0.06)",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = "rgba(56,189,248,0.14)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = "rgba(56,189,248,0.06)")
+                }
+              >
                 Unduh CV <Download size={16} />
               </a>
             </motion.div>
           </div>
 
-          <motion.div variants={itemVariants} className="relative group">
-            <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-white dark:border-zinc-900 shadow-2xl relative z-10">
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 opacity-10 group-hover:opacity-20 transition-opacity"></div>
-              <img 
-                src="/Mee.jpeg" 
-                alt="Muhammad Gilang Ghazy" 
+          {/* Foto */}
+          <motion.div variants={itemVariants} className="relative">
+            <div
+              className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden relative z-10"
+              style={{
+                border: "3px solid rgba(56,189,248,0.35)",
+                boxShadow: "0 0 48px rgba(56,189,248,0.15)",
+              }}
+            >
+              <img
+                src="/Mee.jpeg"
+                alt="Muhammad Gilang Ghazy"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute -inset-4 bg-indigo-500/10 blur-3xl rounded-full -z-10 group-hover:bg-indigo-500/20 transition-all"></div>
+            <div
+              className="absolute -inset-4 blur-3xl rounded-full -z-10"
+              style={{ background: "rgba(56,189,248,0.08)" }}
+            />
           </motion.div>
         </motion.div>
 
-        {/* About Section */}
+        {/* ── Tentang ── */}
         <Section title="tentang" id="tentang">
           <div className="max-w-2xl space-y-6">
-            <p className="text-xl text-zinc-700 dark:text-zinc-300 leading-relaxed font-light">
-              Lulusan SMK Telkom Purwokerto jurusan Pengembangan Perangkat Lunak & Gim (PPLG), pernah menjalani PKL di 
-              PT Cmlabs Indonesia Digital sebagai Backend Engineer. 
-              Sekarang fokus mengasah skill fullstack dari API sampai 
-              <span className="font-medium text-zinc-900 dark:text-white"> tampilan yang enak dilihat.</span>
+            <p
+              className="text-xl leading-relaxed font-light"
+              style={{ color: "rgba(255,255,255,0.75)" }}
+            >
+              Lulusan SMK Telkom Purwokerto jurusan Pengembangan Perangkat Lunak &amp; Gim (PPLG), pernah
+              menjalani PKL di PT Cmlabs Indonesia Digital sebagai Backend Engineer. Sekarang fokus mengasah
+              skill fullstack dari API sampai{" "}
+              <span className="font-medium" style={{ color: "#fff" }}>
+                tampilan yang enak dilihat.
+              </span>
             </p>
-            <p className="text-zinc-600 dark:text-zinc-400 leading-chill">
-              Di luar coding, saya sering mengeksplorasi desain UI, menonton film, dan mencari inspirasi untuk meningkatkan kualitas tampilan aplikasi. 
+            <p className="leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+              Di luar coding, saya sering mengeksplorasi desain UI, menonton film, dan mencari inspirasi
+              untuk meningkatkan kualitas tampilan aplikasi.
             </p>
           </div>
         </Section>
 
-        {/* Work Section */}
+        {/* ── Pengalaman ── */}
         <Section title="pengalaman" id="pengalaman">
           <div className="space-y-12">
-           {[
+            {[
               {
                 title: "Backend Engineer Intern",
                 company: "PT Cmlabs Indonesia Digital Malang",
                 desc: "Berkontribusi dalam pengembangan dan pemeliharaan sistem backend. Belajar langsung di lingkungan profesional selama 4 bulan.",
                 tag: "Internship · Juni - September 2025",
-                year: "2025"
-              }
-             
+                year: "2025",
+              },
             ].map((work, i) => (
-              <div key={i} className="group relative flex justify-between items-start border-b border-gray-50 dark:border-zinc-900 pb-8 last:border-0 last:pb-0 transition-all hover:translate-x-1">
+              <div
+                key={i}
+                className="relative flex justify-between items-start pb-8 last:pb-0 transition-all hover:translate-x-1 border-b last:border-0"
+                style={{ borderColor: BORDER }}
+              >
                 <div className="space-y-1">
-                  <h3 className="text-lg font-medium text-zinc-900 dark:text-white flex items-center gap-2">
-                    {work.title} <span className="text-sm font-normal text-zinc-400">— {work.company}</span>
+                  <h3
+                    className="text-lg font-medium flex items-center gap-2 flex-wrap"
+                    style={{ color: "#fff" }}
+                  >
+                    {work.title}
+                    <span
+                      className="text-sm font-normal"
+                      style={{ color: "rgba(255,255,255,0.35)" }}
+                    >
+                      — {work.company}
+                    </span>
                   </h3>
-                  <p className="text-zinc-500 dark:text-zinc-400 max-w-lg">{work.desc}</p>
+                  <p style={{ color: "rgba(255,255,255,0.55)" }} className="max-w-lg">
+                    {work.desc}
+                  </p>
                   <div className="pt-2">
-                    <span className="text-[10px] uppercase tracking-wider px-2 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 rounded-sm">
+                    <span
+                      className="text-[10px] uppercase tracking-wider px-2 py-1 rounded-sm"
+                      style={{
+                        background: "rgba(56,189,248,0.1)",
+                        color: ACCENT,
+                        border: "1px solid rgba(56,189,248,0.2)",
+                      }}
+                    >
                       {work.tag}
                     </span>
                   </div>
                 </div>
-                <span className="text-sm text-zinc-300 dark:text-zinc-700 font-mono italic">{work.year}</span>
+                <span
+                  className="text-sm font-mono italic flex-shrink-0 ml-4"
+                  style={{ color: "rgba(255,255,255,0.25)" }}
+                >
+                  {work.year}
+                </span>
               </div>
             ))}
           </div>
         </Section>
 
-        {/* Projects Section */}
+        {/* ── Proyek ── */}
         <Section title="proyek">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[
-            {
-              title: "Tumpang Sari",
-              desc: "Aplikasi booking servis motor. Dibangun untuk mempermudah pelanggan jadwalkan servis kendaraan mereka.",
-              icon: <img src="/tumpangsari.png" alt="Tumpang Sari" />,
-              style: "bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/30",
-              link: "https://github.com/MuhammadGilangGhazy1722/MK-3C"
-            },
-            {
-              title: "FINTRA",
-              desc: "Aplikasi manajemen keuangan pribadi. Catat pemasukan, pengeluaran, dan pantau kondisi keuangan.",
-              icon: <img src="/fintranew.png" alt="FINTRA" />,
-              style: "bg-emerald-50 dark:bg-emerald-900/10 border-emerald-100 dark:border-emerald-900/30",
-              link: "https://github.com/MuhammadGilangGhazy1722/Fintra"
-            },
-            {
-              title: "RagilTrans",
-              desc: "Aplikasi booking mobil online. Memudahkan pengguna memesan kendaraan dengan mudah dan cepat.",
-              icon: <img src="/newragiltrans.png" alt="RagilTrans" />,
-              style: "bg-purple-50 dark:bg-purple-900/10 border-purple-100 dark:border-purple-900/30",
-              link: "https://github.com/MuhammadGilangGhazy1722/RAGILTRANS"
-            },
-            {
-              title: "Slide Card",
-              desc: "Eksperimen web interaktif dengan animasi kartu. Proyek iseng yang jadi latihan CSS dan JavaScript.",
-              icon: <Code2 className="text-blue-500" />,
-              style: "bg-blue-50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/30",
-              link: "https://github.com/MuhammadGilangGhazy1722/Project-Hosting"
-            }
-          ].map((proj, i) => (
-            <a key={i} href={proj.link} target="_blank" rel="noopener noreferrer" className={`p-8 rounded-2xl border transition-all hover:shadow-lg dark:hover:shadow-zinc-900/50 cursor-pointer block ${proj.style}`}>
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white dark:bg-zinc-900 shadow-sm mb-6">
-                {proj.icon}
-              </div>
-              <h3 className="font-semibold text-zinc-900 dark:text-white mb-2">{proj.title}</h3>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{proj.desc}</p>
-            </a>
-          ))}
+            {[
+              {
+                title: "Tumpang Sari",
+                desc: "Aplikasi booking servis motor. Dibangun untuk mempermudah pelanggan jadwalkan servis kendaraan mereka.",
+                icon: <img src="/tumpangsari.png" alt="Tumpang Sari" className="w-6 h-6 object-contain" />,
+                link: "https://github.com/MuhammadGilangGhazy1722/MK-3C",
+              },
+              {
+                title: "FINTRA",
+                desc: "Aplikasi manajemen keuangan pribadi. Catat pemasukan, pengeluaran, dan pantau kondisi keuangan.",
+                icon: <img src="/fintraaa.png" alt="FINTRA" className="w-6 h-6 object-contain" />,
+                link: "https://github.com/MuhammadGilangGhazy1722/Fintra",
+              },
+              {
+                title: "RagilTrans",
+                desc: "Aplikasi booking mobil online. Memudahkan pengguna memesan kendaraan dengan mudah dan cepat.",
+                icon: <img src="/newragiltrans.png" alt="RagilTrans" className="w-6 h-6 object-contain" />,
+                link: "https://github.com/MuhammadGilangGhazy1722/RAGILTRANS",
+              },
+              {
+                title: "Slide Card",
+                desc: "Eksperimen web interaktif dengan animasi kartu. Proyek iseng yang jadi latihan CSS dan JavaScript.",
+                icon: <Code2 size={20} style={{ color: ACCENT }} />,
+                link: "https://github.com/MuhammadGilangGhazy1722/Project-Hosting",
+              },
+            ].map((proj, i) => (
+              <a
+                key={i}
+                href={proj.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-8 rounded-2xl block transition-all"
+                style={{ background: BG_CARD, border: `1px solid ${BORDER}` }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = BG_CARD_H;
+                  e.currentTarget.style.borderColor = "rgba(56,189,248,0.25)";
+                  e.currentTarget.style.boxShadow = "0 4px 32px rgba(56,189,248,0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = BG_CARD;
+                  e.currentTarget.style.borderColor = BORDER;
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+              >
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-6"
+                  style={{
+                    background: "rgba(56,189,248,0.1)",
+                    border: "1px solid rgba(56,189,248,0.2)",
+                  }}
+                >
+                  {proj.icon}
+                </div>
+                <h3 className="font-semibold mb-2" style={{ color: "#fff" }}>
+                  {proj.title}
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  {proj.desc}
+                </p>
+              </a>
+            ))}
           </div>
         </Section>
 
-        {/* Stack & Skills */}
+        {/* ── Stack ── */}
         <Section title="stack">
           <div className="flex flex-wrap gap-3">
-            <Chip text="React" colorClass="bg-blue-50 text-blue-600 border-blue-100" />
-            <Chip text="Next.js" colorClass="bg-indigo-50 text-indigo-600 border-indigo-100" />
-            <Chip text="TypeScript" colorClass="bg-sky-50 text-sky-600 border-sky-100" />
-            <Chip text="Tailwind CSS" colorClass="bg-cyan-50 text-cyan-600 border-cyan-100" />
-            <Chip text="Golang" colorClass="bg-emerald-50 text-emerald-600 border-emerald-100" />
-            <Chip text="Node.js" colorClass="bg-lime-50 text-lime-700 border-lime-100" />
-            <Chip text="Git" colorClass="bg-blue-50 text-blue-600 border-blue-100" />
-            <Chip text="Supabase" colorClass="bg-green-50 text-green-600 border-green-100" />
-            <Chip text="Dbeaver" colorClass="bg-zinc-50 text-zinc-600 border-zinc-100" />
-            <Chip text="PostgreSQL" colorClass="bg-blue-50 text-blue-600 border-blue-100" />
-            <Chip text="mySQL" colorClass="bg-yellow-50 text-yellow-600 border-yellow-100" />
+            {(
+              [
+                { text: "React",        c: "rgba(56,189,248,0.15)",  tc: "#7DD3FC", bc: "rgba(56,189,248,0.3)"   },
+                { text: "Next.js",      c: "rgba(255,255,255,0.07)", tc: "#e2e8f0", bc: "rgba(255,255,255,0.15)" },
+                { text: "TypeScript",   c: "rgba(96,165,250,0.15)",  tc: "#93C5FD", bc: "rgba(96,165,250,0.3)"   },
+                { text: "Tailwind CSS", c: "rgba(56,189,248,0.15)",  tc: "#38BDF8", bc: "rgba(56,189,248,0.3)"   },
+                { text: "Golang",       c: "rgba(52,211,153,0.15)",  tc: "#6EE7B7", bc: "rgba(52,211,153,0.3)"   },
+                { text: "Node.js",      c: "rgba(163,230,53,0.12)",  tc: "#BEF264", bc: "rgba(163,230,53,0.3)"   },
+                { text: "Git",          c: "rgba(251,146,60,0.12)",  tc: "#FDB07E", bc: "rgba(251,146,60,0.3)"   },
+                { text: "Supabase",     c: "rgba(52,211,153,0.12)",  tc: "#6EE7B7", bc: "rgba(52,211,153,0.25)"  },
+                { text: "DBeaver",      c: "rgba(255,255,255,0.06)", tc: "#CBD5E1", bc: "rgba(255,255,255,0.12)" },
+                { text: "PostgreSQL",   c: "rgba(96,165,250,0.12)",  tc: "#93C5FD", bc: "rgba(96,165,250,0.25)"  },
+                { text: "mySQL",        c: "rgba(250,204,21,0.12)",  tc: "#FDE68A", bc: "rgba(250,204,21,0.3)"   },
+              ] as { text: string; c: string; tc: string; bc: string }[]
+            ).map(({ text, c, tc, bc }) => (
+              <span
+                key={text}
+                className="px-4 py-1.5 rounded-full text-sm font-medium border"
+                style={{ background: c, color: tc, borderColor: bc }}
+              >
+                {text}
+              </span>
+            ))}
           </div>
         </Section>
 
-        {/* Contact Section */}
-<Section title="kontak" id="kontak">
-  <div className="space-y-10">
-    <p className="text-2xl font-light text-zinc-800 dark:text-zinc-200">
-      Ada ide yang ingin dibicarakan? <br />
-      <span className="font-medium text-zinc-950 dark:text-white">Ayo ngobrol bareng.</span>
-    </p>
+        {/* ── Kontak ── */}
+        <Section title="kontak" id="kontak">
+          <div className="space-y-10">
+            <p className="text-2xl font-light" style={{ color: "rgba(255,255,255,0.75)" }}>
+              Ada ide yang ingin dibicarakan? <br />
+              <span className="font-semibold" style={{ color: "#fff" }}>
+                Ayo ngobrol bareng.
+              </span>
+            </p>
 
-    {/* Form */}
-    <div className="bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-6 sm:p-8 space-y-4 border border-zinc-100 dark:border-zinc-800">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <input
-          type="text"
-          placeholder="Nama"
-          value={formData.name}
-          onChange={(e) => setFormData({...formData, name: e.target.value})}
-          className="w-full px-4 py-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={(e) => setFormData({...formData, email: e.target.value})}
-          className="w-full px-4 py-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-      </div>
-      <textarea
-        placeholder="Pesan"
-        rows={5}
-        value={formData.message}
-        onChange={(e) => setFormData({...formData, message: e.target.value})}
-        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
-      />
-      <button
-        onClick={sendEmail}
-        disabled={sending}
-        className="w-full sm:w-auto px-8 py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-xl font-medium text-sm hover:opacity-90 transition-all disabled:opacity-50"
-      >
-        {sending ? 'Mengirim...' : sent ? 'Terkirim ✓' : 'Kirim Pesan'}
-      </button>
-      {sent && <p className="text-sm text-emerald-500">Pesan berhasil dikirim!</p>}
-      {error && <p className="text-sm text-red-500">Gagal kirim, coba lagi.</p>}
-    </div>
-          {/* Contact Cards */}
-<div className="bg-white-900 rounded-2xl px-8 py-6 flex flex-wrap justify-center md:justify-between items-center gap-6">
-            <a href="mailto:lankghzy@gmail.com" className="flex items-center gap-3 text-zinc-400 hover:text-black transition-colors">
-              <Mail size={18} />
-              <span className="text-sm font-medium">lankghzy@gmail.com</span>
-            </a>
-            <a href="https://wa.me/6285755937382" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-zinc-400 hover:text-black transition-colors">
-              <Phone size={18} />
-              <span className="text-sm font-medium">0857-5593-7382</span>
-            </a>
-            <a href="https://github.com/MuhammadGilangGhazy1722" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-zinc-400 hover:text-black transition-colors">
-              <Github size={18} />
-              <span className="text-sm font-medium">MuhammadGilangGhazy</span>
-            </a>
-            <a href="https://www.instagram.com/lankghzy_" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-zinc-400 hover:text-black transition-colors">
-              <Instagram size={18} />
-              <span className="text-sm font-medium">@lankghzy_</span>
-            </a>
+            {/* Form */}
+            <div
+              className="backdrop-blur-sm rounded-2xl p-6 sm:p-8 space-y-4"
+              style={{
+                background: "rgba(255,255,255,0.04)",
+                border: `1px solid ${BORDER}`,
+              }}
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {(["name", "email"] as (keyof FormFields)[]).map((field) => (
+                  <input
+                    key={field}
+                    type={field === "email" ? "email" : "text"}
+                    placeholder={field === "name" ? "Nama" : "Email"}
+                    value={formData[field]}
+                    onChange={(e) =>
+                      setFormData({ ...formData, [field]: e.target.value })
+                    }
+                    className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all placeholder-white/30"
+                    style={{
+                      background: "rgba(255,255,255,0.06)",
+                      border: "1px solid rgba(56,189,248,0.18)",
+                      color: "#fff",
+                    }}
+                    onFocus={(e) =>
+                      (e.currentTarget.style.boxShadow = "0 0 0 2px rgba(56,189,248,0.4)")
+                    }
+                    onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
+                  />
+                ))}
+              </div>
+              <textarea
+                placeholder="Pesan"
+                rows={5}
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all resize-none placeholder-white/30"
+                style={{
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(56,189,248,0.18)",
+                  color: "#fff",
+                }}
+                onFocus={(e) =>
+                  (e.currentTarget.style.boxShadow = "0 0 0 2px rgba(56,189,248,0.4)")
+                }
+                onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
+              />
+              <button
+                onClick={sendEmail}
+                disabled={sending}
+                className="w-full sm:w-auto px-8 py-3 rounded-xl font-semibold text-sm transition-all disabled:opacity-50"
+                style={{
+                  background: ACCENT,
+                  color: BG,
+                  boxShadow: "0 0 20px rgba(56,189,248,0.3)",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.boxShadow = "0 0 32px rgba(56,189,248,0.5)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.boxShadow = "0 0 20px rgba(56,189,248,0.3)")
+                }
+              >
+                {sending ? "Mengirim..." : sent ? "Terkirim ✓" : "Kirim Pesan"}
+              </button>
+              {sent && (
+                <p className="text-sm" style={{ color: "#6EE7B7" }}>
+                  Pesan berhasil dikirim!
+                </p>
+              )}
+              {error && (
+                <p className="text-sm text-red-400">Gagal kirim, coba lagi.</p>
+              )}
+            </div>
+
+            {/* Sosmed */}
+            <div className="flex flex-wrap justify-center md:justify-between items-center gap-6 px-2">
+              {[
+                { href: "mailto:lankghzy@gmail.com",                  icon: <Mail size={18} />,      label: "lankghzy@gmail.com"  },
+                { href: "https://wa.me/6285755937382",                icon: <Phone size={18} />,     label: "0857-5593-7382"      },
+                { href: "https://github.com/MuhammadGilangGhazy1722", icon: <Github size={18} />,    label: "MuhammadGilangGhazy" },
+                { href: "https://www.instagram.com/lankghzy_",        icon: <Instagram size={18} />, label: "@lankghzy_"          },
+              ].map(({ href, icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 transition-colors"
+                  style={{ color: "rgba(255,255,255,0.4)" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = ACCENT)}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}
+                >
+                  {icon}
+                  <span className="text-sm font-medium">{label}</span>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      </Section>
+        </Section>
       </main>
 
-      <footer className="max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-gray-50 dark:border-zinc-900">
-        <p className="text-sm text-zinc-400 italic">
-          Built by Gilang — 2026 · Batam, Indonesia
-        </p>
-        <div className="flex gap-4 items-center">
-          <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
-          <span className="text-sm font-medium text-indigo-500">GilangGhazy.dev</span>
+      <footer
+        className="border-t"
+        style={{ background: "rgba(0,0,0,0.3)", borderColor: BORDER }}
+      >
+        <div className="max-w-6xl mx-auto px-6 py-6 flex flex-wrap justify-center md:justify-between items-center gap-4">
+          <p className="text-sm italic" style={{ color: "rgba(255,255,255,0.3)" }}>
+            Built by Gilang — 2026 · Batam, Indonesia
+          </p>
+          <div className="flex gap-3 items-center">
+            <span className="w-2 h-2 rounded-full" style={{ background: ACCENT }} />
+            <span className="text-sm font-medium" style={{ color: ACCENT }}>
+              GilangGhazy.dev
+            </span>
+          </div>
         </div>
       </footer>
     </div>
