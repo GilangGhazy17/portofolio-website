@@ -521,7 +521,7 @@ export default function App() {
                 {[
                   { href: "mailto:lankghzy@gmail.com", icon: <Mail size={18} />, label: "lankghzy@gmail.com" },
                   { href: "https://wa.me/6285755937382", icon: <Phone size={18} />, label: "0857-5593-7382" },
-                  { href: "https://github.com/MuhammadGilangGhazy1722", icon: <Github size={18} />, label: "MuhammadGilangGhazy" },
+                  { href: "https://github.com/GilangGhazy17", icon: <Github size={18} />, label: "MuhammadGilangGhazy" },
                   { href: "https://www.instagram.com/lankghzy_", icon: <Instagram size={18} />, label: "@lankghzy_" },
                 ].map(({ href, icon, label }) => (
                   <a
