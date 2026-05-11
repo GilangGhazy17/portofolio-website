@@ -354,72 +354,125 @@ export default function App() {
           </div>
         </Section>
 
-        {/* ── Proyek ── */}
-        <Section title="proyek">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                title: "Tumpang Sari",
-                desc: "Aplikasi booking servis motor. Dibangun untuk mempermudah pelanggan jadwalkan servis kendaraan mereka.",
-                icon: <img src="/tumpangsari.png" alt="Tumpang Sari" className="object-contain" />,
-                link: "https://github.com/MuhammadGilangGhazy1722/MK-3C",
-              },
-              {
-                title: "FINTRA",
-                desc: "Aplikasi manajemen keuangan pribadi. Catat pemasukan, pengeluaran, dan pantau kondisi keuangan.",
-                icon: <img src="/fintraaa.png" alt="FINTRA" className="object-contain" />,
-                link: "https://github.com/MuhammadGilangGhazy1722/Fintra",
-              },
-              {
-                title: "RagilTrans",
-                desc: "Aplikasi booking mobil online. Memudahkan pengguna memesan kendaraan dengan mudah dan cepat.",
-                icon: <img src="/newragiltrans.png" alt="RagilTrans" className="object-contain" />,
-                link: "https://github.com/MuhammadGilangGhazy1722/RAGILTRANS",
-              },
-              {
-                title: "Slide Card",
-                desc: "Eksperimen web interaktif dengan animasi kartu. Proyek iseng yang jadi latihan CSS dan JavaScript.",
-                icon: <Code2 size={20} style={{ color: ACCENT }} />,
-                link: "https://github.com/MuhammadGilangGhazy1722/Project-Hosting",
-              },
-            ].map((proj, i) => (
-              <a
-                key={i}
-                href={proj.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-8 rounded-2xl block transition-all"
-                style={{ background: BG_CARD, border: `1px solid ${BORDER}` }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = BG_CARD_H;
-                  e.currentTarget.style.borderColor = "rgba(56,189,248,0.25)";
-                  e.currentTarget.style.boxShadow = "0 4px 32px rgba(56,189,248,0.1)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = BG_CARD;
-                  e.currentTarget.style.borderColor = BORDER;
-                  e.currentTarget.style.boxShadow = "none";
-                }}
-              >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-6"
-                  style={{
-                    background: "rgba(56,189,248,0.1)",
-                    border: "1px solid rgba(56,189,248,0.2)",
-                  }}
-                >
-                  {proj.icon}
-                </div>
-                <h3 className="font-semibold mb-2" style={{ color: "#fff" }}>
-                  {proj.title}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  {proj.desc}
-                </p>
-              </a>
-            ))}
-          </div>
-        </Section>
+{/* ── Proyek ── */}
+<Section title="proyek">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {[
+      {
+        title: "Tumpang Sari",
+        desc: "Aplikasi booking servis motor. Dibangun untuk mempermudah pelanggan jadwalkan servis kendaraan mereka.",
+        icon: <img src="/tumpangsari.png" alt="Tumpang Sari" className="object-contain" />,
+        source: "https://github.com/GilangGhazy17/MK-3C",
+        website: "", // kosongkan kalau belum ada live URL
+      },
+      {
+        title: "FINTRA",
+        desc: "Aplikasi manajemen keuangan pribadi. Catat pemasukan, pengeluaran, dan pantau kondisi keuangan.",
+        icon: <img src="/fintraaa.png" alt="FINTRA" className="object-contain" />,
+        source: "https://github.com/GilangGhazy17/Fintra",
+        website: "",
+      },
+      {
+        title: "RagilTrans",
+        desc: "Aplikasi booking mobil online. Memudahkan pengguna memesan kendaraan dengan mudah dan cepat.",
+        icon: <img src="/newragiltrans.png" alt="RagilTrans" className="object-contain" />,
+        source: "https://github.com/GilangGhazy17/RAGILTRANS",
+        website: "",
+      },
+      {
+        title: "Memflip-Game",
+        desc: "Website permainan memory card. Latih daya ingat dengan mencocokkan pasangan kartu yang tersembunyi.",
+        icon: <img src="/logosss.png" alt="Memflip-Game" className="object-contain" />,
+        source: "https://github.com/GilangGhazy17/MemFlipGame",
+        website: "https://mem-flip-game.vercel.app", // contoh, ganti sesuai URL asli
+      },
+    ].map((proj, i) => (
+      <div
+        key={i}
+        className="p-8 rounded-2xl flex flex-col transition-all"
+        style={{ background: BG_CARD, border: `1px solid ${BORDER}` }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = BG_CARD_H;
+          e.currentTarget.style.borderColor = "rgba(56,189,248,0.25)";
+          e.currentTarget.style.boxShadow = "0 4px 32px rgba(56,189,248,0.1)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = BG_CARD;
+          e.currentTarget.style.borderColor = BORDER;
+          e.currentTarget.style.boxShadow = "none";
+        }}
+      >
+        {/* Icon */}
+        <div
+          className="w-12 h-12 rounded-xl flex items-center justify-center mb-6"
+          style={{
+            background: "rgba(56,189,248,0.1)",
+            border: "1px solid rgba(56,189,248,0.2)",
+          }}
+        >
+          {proj.icon}
+        </div>
+
+        {/* Title & desc */}
+        <h3 className="font-semibold mb-2" style={{ color: "#fff" }}>
+          {proj.title}
+        </h3>
+        <p className="text-sm leading-relaxed flex-1" style={{ color: "rgba(255,255,255,0.5)" }}>
+          {proj.desc}
+        </p>
+
+        {/* Buttons */}
+        <div className="flex gap-3 mt-6">
+          <a
+            href={proj.source}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium border transition-all"
+            style={{
+              borderColor: "rgba(255,255,255,0.15)",
+              color: "rgba(255,255,255,0.6)",
+              background: "rgba(255,255,255,0.05)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.35)";
+              e.currentTarget.style.color = "#fff";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
+              e.currentTarget.style.color = "rgba(255,255,255,0.6)";
+            }}
+          >
+            <Github size={13} /> Source
+          </a>
+
+          {proj.website && (
+            <a
+              href={proj.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium border transition-all"
+              style={{
+                borderColor: "rgba(56,189,248,0.3)",
+                color: ACCENT,
+                background: "rgba(56,189,248,0.08)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(56,189,248,0.18)";
+                e.currentTarget.style.borderColor = "rgba(56,189,248,0.5)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(56,189,248,0.08)";
+                e.currentTarget.style.borderColor = "rgba(56,189,248,0.3)";
+              }}
+            >
+              <Code2 size={13} /> Website
+            </a>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</Section>
 
         {/* ── Stack ── */}
         <Section title="stack">
